@@ -1,4 +1,4 @@
-const { HTTP_METHODS: { OPTIONS, GET, POST, DELETE, PATCH } } = require("../helpers/http-methods");
+const { HTTP_METHODS: { OPTIONS, GET, POST, DELETE, PATCH } } = require("../constants/http-methods");
 
 const headers = {
   "Content-Type": "application/json",
