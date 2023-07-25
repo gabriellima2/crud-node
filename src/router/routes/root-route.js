@@ -10,7 +10,7 @@ const rootRoute = {
 	},
 	[HTTP_METHODS.POST]: async (req, res) => {
 		res.statusCode = HTTP_STATUS_CODE.Created;
-		makeTaskController().create(req, res);
+		await makeTaskController().create(req, res);
 	},
 	[HTTP_METHODS.PATCH]: async (req, res) => {
 		res.statusCode = HTTP_STATUS_CODE.Ok;

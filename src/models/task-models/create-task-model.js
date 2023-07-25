@@ -1,3 +1,5 @@
+const { CreateTaskError, InvalidDataFormatError } = require("../../errors");
+
 class CreateTaskModel {
 	constructor(repository, validator) {
 		this.repository = repository;
@@ -6,10 +8,10 @@ class CreateTaskModel {
 
 	async execute(task) {
 		const validationErrorMessage = this.validator(task);
-		if (validationErrorMessage) throw new Error(validationErrorMessage);
+		if (validationErrorMessage) throw new InvalidDataFormatError(validationErrorMessage);
 
 		const createdTask = await this.repository.create(task);
-		if (!createdTask) throw new Error("An error occurred while creating the task");
+		if (!createdTask) throw new CreateTaskError();
 		return createdTask;
 	}
 }
