@@ -1,6 +1,6 @@
 const { routes } = require("./routes");
 
-const { refineUrl } = require("../helpers/refine-url");
+const { getPathname } = require("../helpers/get-pathname");
 const { methodHandlerBasedOnPath } = require("../helpers/method-handler-based-on-path");
 
 const { HTTP_STATUS_CODE } = require("../constants/http-status-code");
@@ -8,7 +8,7 @@ const { HTTP_STATUS_CODE } = require("../constants/http-status-code");
 class Router {
 	async execute(req, res) {
 		const { url, method } = req;
-		const { path } = refineUrl(url);
+		const path = getPathname(url);
 		const isUndefinedRoute = !path || !Object.keys(routes).includes(path);
 		if (isUndefinedRoute) return await routes.notFound["GET"](req, res);
 		try {
