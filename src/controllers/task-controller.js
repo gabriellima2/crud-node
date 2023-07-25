@@ -2,8 +2,6 @@ const { requestBodyAdapter } = require("../adapters/request-body-adapter");
 const { makeCreateTaskModel } = require("../factories/models/task-models");
 const { HTTP_STATUS_CODE } = require("../constants/http-status-code");
 
-const { Error } = require("prisma")
-
 class TaskController {
 	async create(req, res) {
 		try {

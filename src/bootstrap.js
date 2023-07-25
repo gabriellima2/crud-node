@@ -1,5 +1,6 @@
 const { headers } = require("./config/headers");
 const { defineHeaders } = require("./helpers/define-headers");
+const { HTTP_STATUS_CODE } = require("./constants/http-status-code");
 
 const { prisma } = require("./lib/prisma-client");
 const { makeRouter } = require("./factories/make-router");
@@ -11,8 +12,9 @@ async function bootstrap(req, res) {
 		prisma.$disconnect();
 	})
 	.catch(async (err) => {
-		console.error(err);
 		await prisma.$disconnect();
+		res.statusCode = HTTP_STATUS_CODE["Internal-Server-Error"];
+		res.end(JSON.stringify({ message: "An unexpected error occurred on the server" }));
 		process.exit(1);
 	});
 }
