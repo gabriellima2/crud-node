@@ -2,7 +2,8 @@ const {
 	makeCreateTaskModel,
 	makeGetTasksModel,
 	makeGetTaskModel,
-	makeDeleteTaskModel
+	makeDeleteTaskModel,
+	makeUpdateTaskModel
 } = require("../factories/models");
 
 const { requestBodyAdapter } = require("../adapters/request-body-adapter");
@@ -36,6 +37,20 @@ class TaskController {
 				return res.end(JSON.stringify(task));
 			}
 			throw new InvalidUrlParamsError();
+		} catch (err) {
+			const { message, statusCode } = handleError(err);
+			res.statusCode = statusCode;
+			res.end(JSON.stringify({ message }));
+		}
+	}
+
+	async update(req, res) {
+		try {
+			const params = getUrlParams(req.url);
+			if (params && !params.id) throw new InvalidUrlParamsError();
+			const task = JSON.parse(await requestBodyAdapter(req));
+			const updatedTask = await makeUpdateTaskModel().execute({ id: Number(params.id), task });
+			res.end(JSON.stringify(updatedTask));
 		} catch (err) {
 			const { message, statusCode } = handleError(err);
 			res.statusCode = statusCode;
