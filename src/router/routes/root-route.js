@@ -5,11 +5,9 @@ const { HTTP_STATUS_CODE } = require("../../constants/http-status-code");
 
 const rootRoute = {
 	[HTTP_METHODS.GET]: async (req, res) => {
-		res.statusCode = HTTP_STATUS_CODE.Ok;
-		res.end(JSON.stringify({ message: "GET" }));
+		await makeTaskController().get(req, res);
 	},
 	[HTTP_METHODS.POST]: async (req, res) => {
-		res.statusCode = HTTP_STATUS_CODE.Created;
 		await makeTaskController().create(req, res);
 	},
 	[HTTP_METHODS.PATCH]: async (req, res) => {
