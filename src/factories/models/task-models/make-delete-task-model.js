@@ -1,5 +1,5 @@
-const { DeleteTaskModel } = require("../../../models/task-models");
-const { taskIdValidation } = require("../../../validations/task-validations");
+const { DeleteTaskModel } = require("../../../models");
+const { taskIdValidation } = require("../../../validations");
 const { makeTaskRepository } = require("../../repositories");
 
 const makeDeleteTaskModel = () => {

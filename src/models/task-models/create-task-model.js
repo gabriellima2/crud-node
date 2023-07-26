@@ -9,7 +9,6 @@ class CreateTaskModel {
 	async execute(task) {
 		const validationErrorMessage = this.validator(task);
 		if (validationErrorMessage) throw new InvalidDataFormatError(validationErrorMessage);
-
 		const createdTask = await this.repository.create(task);
 		if (!createdTask) throw new CreateTaskError();
 		return createdTask;

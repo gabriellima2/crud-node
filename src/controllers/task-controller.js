@@ -1,6 +1,13 @@
+const {
+	makeCreateTaskModel,
+	makeGetTasksModel,
+	makeGetTaskModel,
+	makeDeleteTaskModel
+} = require("../factories/models");
+
 const { requestBodyAdapter } = require("../adapters/request-body-adapter");
 const { InvalidUrlParamsError } = require("../errors");
-const { makeCreateTaskModel, makeGetTasksModel, makeGetTaskModel, makeDeleteTaskModel } = require("../factories/models/task-models");
+
 const { handleError } = require("../helpers/handle-error");
 const { getUrlParams } = require("../helpers/get-url-params");
 

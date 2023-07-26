@@ -1,5 +1,5 @@
-const { taskValidation } = require("../../../validations/task-validations");
-const { CreateTaskModel } = require("../../../models/task-models");
+const { CreateTaskModel } = require("../../../models");
+const { taskValidation } = require("../../../validations");
 const { makeTaskRepository } = require("../../repositories");
 
 const makeCreateTaskModel = () => {

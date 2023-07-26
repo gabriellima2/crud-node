@@ -1,4 +1,4 @@
-const { GetTasksModel } = require("../../../models/task-models");
+const { GetTasksModel } = require("../../../models");
 const { makeTaskRepository } = require("../../repositories");
 
 const makeGetTasksModel = () => {
