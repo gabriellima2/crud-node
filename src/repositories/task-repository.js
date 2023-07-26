@@ -19,6 +19,12 @@ class TaskRepository {
 		return Object.freeze(task);
 	}
 
+	async update({ id, data }) {
+		const updatedTask = await prisma.task.update({ where: { id }, data });
+		await this.#disconnect();
+		return Object.freeze(updatedTask);
+	}
+
 	async delete(id) {
 		const deletedTask = await prisma.task.delete({ where: { id } });
 		await this.#disconnect();
