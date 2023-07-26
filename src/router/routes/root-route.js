@@ -15,8 +15,7 @@ const rootRoute = {
 		res.end(JSON.stringify({ message: "PATCH" }));
 	},
 	[HTTP_METHODS.DELETE]: async (req, res) => {
-		res.statusCode = HTTP_STATUS_CODE.Ok;
-		res.end(JSON.stringify({ message: "DELETE" }));
+		await makeTaskController().delete(req, res);
 	},
 }
 

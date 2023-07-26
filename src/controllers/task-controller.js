@@ -1,6 +1,6 @@
 const { requestBodyAdapter } = require("../adapters/request-body-adapter");
 const { InvalidUrlParamsError } = require("../errors");
-const { makeCreateTaskModel, makeGetTasksModel, makeGetTaskModel } = require("../factories/models/task-models");
+const { makeCreateTaskModel, makeGetTasksModel, makeGetTaskModel, makeDeleteTaskModel } = require("../factories/models/task-models");
 const { handleError } = require("../helpers/handle-error");
 const { getUrlParams } = require("../helpers/get-url-params");
 
@@ -16,6 +16,7 @@ class TaskController {
 			res.end(JSON.stringify({ message }));
 		}
 	}
+
 	async get(req, res) {
 		try {
 			const params = getUrlParams(req.url);
@@ -28,6 +29,19 @@ class TaskController {
 				return res.end(JSON.stringify(task));
 			}
 			throw new InvalidUrlParamsError();
+		} catch (err) {
+			const { message, statusCode } = handleError(err);
+			res.statusCode = statusCode;
+			res.end(JSON.stringify({ message }));
+		}
+	}
+
+	async delete(req, res) {
+		try {
+			const params = getUrlParams(req.url);
+			if (params && !params.id) throw new InvalidUrlParamsError();
+			const deletedTask = await makeDeleteTaskModel().execute(Number(params.id));
+			res.end(JSON.stringify(deletedTask));
 		} catch (err) {
 			const { message, statusCode } = handleError(err);
 			res.statusCode = statusCode;
