@@ -1,7 +1,7 @@
-const { createTaskValidation } = require("./create-task-validation");
-const { getByIdValidation } = require("./get-by-id-validation");
+const { taskValidation } = require("./task-validation");
+const { taskIdValidation } = require("./task-id-validation");
 
 module.exports = {
-	createTaskValidation,
-	getByIdValidation,
+	taskValidation,
+	taskIdValidation,
 };

@@ -8,10 +8,10 @@ const taskSchema = z.object({
 	description: GenericDescriptionConstraint,
 });
 
-function createTaskValidation(params) {
+function taskValidation(params) {
 	return validateFields(params, taskSchema);
 }
 
 module.exports = {
-	createTaskValidation,
+	taskValidation,
 };
