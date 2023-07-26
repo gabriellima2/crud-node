@@ -1,6 +1,6 @@
 const { requestBodyAdapter } = require("../adapters/request-body-adapter");
 const { makeCreateTaskModel } = require("../factories/models/task-models");
-const { HTTP_STATUS_CODE } = require("../constants/http-status-code");
+const { handleError } = require("../helpers/handle-error");
 
 class TaskController {
 	async create(req, res) {
@@ -9,8 +9,8 @@ class TaskController {
 			const createdTask = await makeCreateTaskModel().execute(task);
 			res.end(JSON.stringify(createdTask));
 		} catch (err) {
-			const message = err.message ?? "An unexpected error has occurred";
-			res.statusCode = err.statusCode ?? HTTP_STATUS_CODE["Internal-Server-Error"];
+			const { message, statusCode } = handleError(err);
+			res.statusCode = statusCode;
 			res.end(JSON.stringify({ message }));
 		}
 	}
