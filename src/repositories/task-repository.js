@@ -13,6 +13,12 @@ class TaskRepository {
 		return Object.freeze(tasks);
 	}
 
+	async getById(id) {
+		const task = await prisma.task.findUnique({ where: { id } });
+		await this.#disconnect();
+		return Object.freeze(task);
+	}
+
 	async #disconnect() {
 		await prisma.$disconnect();
 	}
