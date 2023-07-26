@@ -1,12 +1,12 @@
 const { BaseError } = require("./base-error");
-const { CreateTaskError } = require("./task-errors");
 const { BadRequestError } = require("./bad-request-error");
 const { InvalidDataFormatError } = require("./invalid-data-format-error");
 const { InvalidUrlParamsError } = require("./invalid-url-params-error");
+const taskErrors = require("./task-errors");
 
 module.exports = {
+	...taskErrors,
 	BaseError,
-	CreateTaskError,
 	BadRequestError,
 	InvalidDataFormatError,
 	InvalidUrlParamsError,

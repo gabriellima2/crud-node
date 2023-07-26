@@ -1,4 +1,4 @@
-const { InvalidDataFormatError } = require("../../errors");
+const { InvalidDataFormatError, DeleteTaskError } = require("../../errors");
 
 class DeleteTaskModel {
 	constructor(repository, validator) {
@@ -10,6 +10,7 @@ class DeleteTaskModel {
 		const validationErrorMessage = this.validator(id);
 		if (validationErrorMessage) throw new InvalidDataFormatError(validationErrorMessage);
 		const deletedTask = await this.repository.delete(id);
+		if (!deletedTask) throw new DeleteTaskError()
 		return deletedTask;
 	}
 }
