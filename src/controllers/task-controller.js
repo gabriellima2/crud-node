@@ -1,6 +1,6 @@
 const { requestBodyAdapter } = require("../adapters/request-body-adapter");
 const { InvalidUrlParamsError } = require("../errors");
-const { makeCreateTaskModel, makeGetTasksModel } = require("../factories/models/task-models");
+const { makeCreateTaskModel, makeGetTasksModel, makeGetTaskModel } = require("../factories/models/task-models");
 const { handleError } = require("../helpers/handle-error");
 const { getUrlParams } = require("../helpers/get-url-params");
 
@@ -23,7 +23,10 @@ class TaskController {
 				const tasks = await makeGetTasksModel().execute();
 				return res.end(JSON.stringify(tasks));
 			}
-			if (params.id) {} // Todo: Get By Id
+			if (params.id) {
+				const task = await makeGetTaskModel().execute(Number(params.id));
+				return res.end(JSON.stringify(task));
+			}
 			throw new InvalidUrlParamsError();
 		} catch (err) {
 			const { message, statusCode } = handleError(err);
