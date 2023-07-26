@@ -7,6 +7,12 @@ class TaskRepository {
 		return Object.freeze(createdTask);
 	};
 
+	async getAll() {
+		const tasks = await prisma.task.findMany();
+		await this.#disconnect();
+		return Object.freeze(tasks);
+	}
+
 	async #disconnect() {
 		await prisma.$disconnect();
 	}
